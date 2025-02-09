@@ -5,8 +5,8 @@ import { ToastContainer } from "react-toastify";
 import { isLoggedInContext } from "./contexts/isLoggedInContext";
 
 import Home from "./Components/Home";
-import Signup from "./components/Signup";
-import Login from "./components/Login";
+import Signup from "./Components/Signup";
+import Login from "./Components/Login";
 import Navbar from "./Components/Navbar";
 import Logout from "./Components/Logout";
 import ForgotPassword from "./Components/ForgotPassword";

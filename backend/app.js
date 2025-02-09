@@ -37,5 +37,5 @@ app.use('/user', userRoute)
 
 app.listen( process.env.PORT, ()=>{
     console.log(`PORT IS RUNNING ON ${process.env.PORT}`);
-    mongoConnect()
-})
+    mongoConnect();
+});
