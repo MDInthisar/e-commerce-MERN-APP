@@ -6,7 +6,7 @@ import { isLoggedInContext } from "./contexts/isLoggedInContext";
 
 import Home from "./Components/Home.jsx";
 import Signup from "./Components/SignUp.jsx";
-import Login from "./Components/Login.jsx.jsx";
+import Login from "./Components/Login.jsx";
 import Navbar from "./Components/Navbar.jsx";
 import Logout from "./Components/Logout.jsx";
 import ForgotPassword from "./Components/ForgotPassword.jsx";
