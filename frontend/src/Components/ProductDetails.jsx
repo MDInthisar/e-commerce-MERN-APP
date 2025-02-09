@@ -14,7 +14,6 @@ const ProductDetails = () => {
     const notifySuccess = (e) => toast.success(e);
   
     const navigate = useNavigate();
-  
 
     useEffect(() => {
 
