@@ -17,11 +17,22 @@ cloudinary.config({
 
 const app = express();
 
+const allowedOrigins = [process.env.FRONTEND_URL]; // Include frontend URL from env
+
 app.use(cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-    methods: ['GET', 'POST', 'DELETE', 'PUT']
-}))
+  origin: function (origin, callback) {
+    // Check if the origin is allowed
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Allow credentials (cookies, authorization headers)
+  methods: ['GET', 'POST', 'DELETE', 'PUT'], // Specify allowed HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Add any custom headers if needed
+}));
+
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
