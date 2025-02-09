@@ -1,0 +1,111 @@
+/* SignupForm.css */
+.s-container{
+  width: 100vw;
+  height: 90vh;
+  background-color: rgb(25, 24, 24);
+}
+
+.signup-container {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: rgb(0, 0, 0);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: white;
+  text-align: center;
+}
+
+.signup-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.signup-form div {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.signup-form label {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.signup-form input[type="text"],
+.signup-form input[type="password"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border 0.3s ease;
+}
+
+.signup-form input[type="text"]:focus,
+.signup-form input[type="password"]:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+.role-container {
+  margin-top: 15px;
+}
+
+.roles {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+  gap: 1vw;
+}
+
+.role-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.role-item label {
+  font-size: 14px;
+}
+
+.signup-form input[type="radio"] {
+  accent-color: #007BFF; /* Blue color for radio buttons */
+}
+
+button[type="submit"] {
+  padding: 12px;
+  background-color: #007BFF;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.signup-form a {
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+  font-size: 14px;
+  color: #007BFF;
+  transition: color 0.3s ease;
+}
+
+.signup-form a:hover {
+  color: #0056b3;
+}

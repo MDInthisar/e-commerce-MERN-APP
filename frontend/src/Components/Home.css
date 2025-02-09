@@ -1,0 +1,73 @@
+/* HomeProductCards.css */
+
+.products-container {
+  display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 20px;
+      background-color: #aeaeae;
+      width: 100vw;
+      height: 50vw;
+}
+
+.card {
+  background-color: #060606;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+  width: 18vw;
+  height: 20vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.home-img {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+  padding: 2vw;
+}
+
+.card-details {
+  padding: 15px 20px;
+}
+
+.card-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.card-price {
+  font-size: 16px;
+  color: #28a745;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .products-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%; /* Make cards full width on smaller screens */
+  }
+}

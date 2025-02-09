@@ -1,0 +1,83 @@
+/* LoginForm.css */
+.l-container{
+  width: 100vw;
+  height: 90vh;background-color: #212121;
+  display: flex;align-items: center;justify-content: center;
+}
+
+.login-container {
+  height: 23vw;
+  /* max-width: 400px; */
+  /* margin: 50px auto; */
+  background-color: #000000;
+  color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 25vw;
+}
+
+.login-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-form div {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.login-form label {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+  border-color: #007bff; /* Blue border on focus */
+  outline: none;
+}
+
+button[type="submit"] {
+  padding: 12px;
+  background-color: #007bff; /* Blue background */
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.login-container a {
+  display: block;
+  margin-top: 10px;
+  text-decoration: none;
+  font-size: 14px;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.login-container a:hover {
+  color: #0056b3; /* Darker blue on hover */
+}

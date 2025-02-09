@@ -1,0 +1,76 @@
+/* Logout.module.css */
+.logoutContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.1); /* Transparent background */
+  backdrop-filter: blur(12px); /* Blur effect */
+  -webkit-backdrop-filter: blur(12px); /* Safari support */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: background-color 0.3s ease-in-out; /* Smooth transition */
+}
+
+.logoutcard {
+  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent for sleek look */
+  padding: 3vw;
+  border-radius: 2vw;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Depth effect */
+  text-align: center;
+  width: 30vw;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.logoutcard:hover {
+  transform: scale(1.05); /* Slight grow effect on hover */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Shadow on hover */
+}
+
+.logoutcard h1 {
+  font-size: 2vw; /* Responsive font size */
+  margin-bottom: 1.5vw;
+  color: rgb(34, 34, 34); /* Dark text for contrast */
+}
+
+.logoutcard p {
+  font-size: 1.2vw; /* Slightly smaller for descriptions */
+  color: rgba(0, 0, 0, 0.7); /* Softer text color */
+  margin-bottom: 2vw;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  gap: 3vw; /* Adds space between buttons */
+}
+
+button {
+  padding: 1vw 2vw;
+  border: none;
+  border-radius: 1vw;
+  cursor: pointer;
+  font-size: 1.2vw; /* Responsive font size */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:first-child {
+  background-color: rgb(217, 83, 79); /* Red for logout */
+  color: white;
+}
+
+button:last-child {
+  background-color: rgb(91, 192, 222); /* Blue for cancel */
+  color: white;
+}
+
+button:hover {
+  opacity: 0.85; /* Hover effect */
+}
+
+button:active {
+  transform: scale(0.95); /* Click effect */
+}
