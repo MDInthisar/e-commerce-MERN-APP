@@ -13,7 +13,7 @@ import {
   removeCart,
   orderProduct,
   trackOrder,
-  bookedProduct
+  bookedProduct,
 } from "../controllers/userController.js";
 import islogedIn from "../middlewares/islogedIn.js";
 import isAdmin from "../middlewares/isAdmin.js";

@@ -43,7 +43,7 @@ export const profile = async (req, res) => {
   }
 };
 
-export const profileUpdate = async (req, res) => {
+export const profileUpdate = asyncHandler( async (req, res) => {
   const { name, username, doorNo, streetName, pincode, phonoNo } = req.body;
   const file = req.file;
   let profilePic;
@@ -72,7 +72,7 @@ export const profileUpdate = async (req, res) => {
   await user.save();
 
   res.json({ message: "profile updated" });
-};
+});
 
 export const allCart = async (req, res) => {
   const user = await userModel
