@@ -1,85 +1,131 @@
-/* General container styling */
 .admin-products-container {
-    width: 90%;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  /* Heading styling */
-  .admin-products-container h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 30px;
-  }
-  
-  /* Cards container */
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Set minimum card width to 300px */
-    gap: 20px;
-    justify-items: center;
-  }
-  
-  /* Product card styling */
-  .product-card {
-    background-color: #000000;
-    color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-    overflow: hidden;
-    border: 1px solid #ddd;
-    width: 300px; /* Fixed width */
-    height: 300px; /* Fixed height */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .product-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  /* Product image styling */
-  .product-card img {
-    width: 100%;
-    height: 150px; /* Adjusted for card height */
-    object-fit: cover;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  /* Product details styling */
-  .product-details {
-    padding: 10px;
-    flex-grow: 1; /* Ensures the text area grows if needed */
-  }
-  
-  .product-details h3 {
-    font-size: 18px;
-    margin: 10px 0;
-  }
-  
-  .product-details p {
-    margin: 5px 0;
-  }
-  
-  /* Price and stock styling */
-  .product-details p span {
-    font-weight: bold;
-    color: #ffffff;
-  }
-  
-  /* No products message styling */
-  .no-products {
-    text-align: center;
-    color: #888;
-    font-size: 18px;
-    margin-top: 30px;
+  min-height: 100vh;
+  background-color: #0f172a;
+  padding: 2rem;
+  color: #f8fafc;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.admin-products-container h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #2dd4bf;
+  font-weight: 600;
+}
+
+.products-grid {
+  display: flex;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-card {
+  background: #1e293b;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  position: relative;
+  width: 20vw;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-image {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.05);
+}
+
+.product-details {
+  padding: 1.5rem;
+}
+
+.product-actions {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.75rem;
+  z-index: 2;
+}
+
+.product-actions svg {
+  font-size: 2.25rem;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(30, 41, 59, 0.8);
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+
+.product-actions svg:hover {
+  color: #2dd4bf;
+  transform: scale(1.1);
+}
+
+.product-details h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: #f8fafc;
+}
+
+.product-details p {
+  color: #94a3b8;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.product-details p span {
+  color: #2dd4bf;
+  font-weight: 600;
+}
+
+.description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.no-products {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 1.2rem;
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 768px) {
+  .admin-products-container {
+    padding: 1rem;
   }
 
-  .com{
-    display: flex;
-    align-items: center;justify-content: space-between;
+  .products-grid {
+    grid-template-columns: 1fr;
   }
+
+  .product-card {
+    margin-bottom: 1rem;
+  }
+}

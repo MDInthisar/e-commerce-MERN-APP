@@ -20,7 +20,8 @@ const Home = () => {
 
   return (
     <>
-      {products.length <= 0 ? (
+    <div className="home">
+    {products.length <= 0 ? (
         <h1>No products available</h1>
       ) : (
         <div className="products-container">
@@ -45,6 +46,7 @@ const Home = () => {
           ))}
         </div>
       )}
+    </div>
     </>
   );
 };

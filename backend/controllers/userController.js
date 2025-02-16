@@ -13,7 +13,9 @@ export const allProduct = async (req, res) => {
   }
 };
 
-export const singleProduct = async (req, res) => {
+export const singleProduct = async (req, res) => {  
+  console.log(req.params.id);
+  
   const product = await productModel.findOne({ _id: req.params.id }).populate({
     path: "productOwner",
     select: "-password",
@@ -45,7 +47,7 @@ export const profile = async (req, res) => {
 
 export const profileUpdate = async (req, res) => {
   const { name, username, doorNo, streetName, pincode, phonoNo } = req.body;
-  const file = req.file;
+  const file = req.file;  
   let profilePic;
   const user = await userModel.findOne({ _id: req.user.userID });
 

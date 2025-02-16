@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { data, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import axios, { all } from 'axios';
 import {FaEdit, FaTrash} from 'react-icons/fa'
 
 import './AdminProducts.css'
@@ -49,6 +49,8 @@ const Adminproducts = () => {
     });
     if(response.status === 200){
         notifySuccess(response.data.message)
+        const nproduct = allproducts.filter((data)=> data._id !== id);
+        setallproducts(nproduct)
     }else{
         notifyError(response.data.error)
     }

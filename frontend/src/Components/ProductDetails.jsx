@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import './ProductDetails.css'
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Home from './Home'
 
 const ProductDetails = () => {
     const token = localStorage.getItem('token')
@@ -27,7 +28,7 @@ const ProductDetails = () => {
             
         }
         viewProduct()
-    }, [])
+    }, [id])
 
     if(!productdetail){
         return <h1>no product</h1>
@@ -79,6 +80,7 @@ const ProductDetails = () => {
             </div>
         </div>
     </div>
+    <Home/>
     </>
   )
 }

@@ -45,7 +45,7 @@ app.use('/auth', authRoute);
 app.use('/user', userRoute)
 
 
-app.listen( process.env.PORT, ()=>{
+app.listen( process.env.PORT, async ()=>{
     console.log(`PORT IS RUNNING ON ${process.env.PORT}`);
-    mongoConnect();
+    await mongoConnect();
 });

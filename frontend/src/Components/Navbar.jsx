@@ -1,124 +1,115 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import "./Navbar.css"; // Import the CSS file
-import { Link, Links } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { isLoggedInContext } from "../contexts/isLoggedInContext";
+import "./Navbar.css";
 
 const Navbar = ({ isLoggedIn }) => {
   const { setlogoutmodel } = useContext(isLoggedInContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const token = localStorage.getItem("token");
 
-  const shownav = () => {
-    const token = localStorage.getItem("token");
-
-    if (!token || typeof token !== "string") {
+  const generateButtons = () => {
+    if (!token) {
       return (
-        <nav>
-          <Link to="/">
-            <div className="logo">
-              <img
-                src="https://marketplace.canva.com/EAGQ1aYlOWs/1/0/1600w/canva-blue-colorful-illustrative-e-commerce-online-shop-logo-bHiX_0QpJxE.jpg"
-                alt="Logo"
-              />
-            </div>
+        <>
+          <Link to="/signup" onClick={() => setIsMenuOpen(false)}>
+            <button className="nav-btn">Sign Up</button>
           </Link>
-          <div className="btn">
-            <Link to="/signup">
-              <button className="signup">signup</button>
-            </Link>
-            <Link to="/login">
-              <button className="login">login</button>
-            </Link>
-          </div>
-        </nav>
+          <Link to="/login" onClick={() => setIsMenuOpen(false)}>
+            <button className="nav-btn">Login</button>
+          </Link>
+        </>
       );
     }
 
     try {
-      if (isLoggedIn || token) {
-        const decodedToken = jwtDecode(token);
-
-        if (decodedToken.role === "admin") {
-          return (
-            <nav>
-              <Link to="/">
-                <div className="logo">
-                  <img
-                    src="https://marketplace.canva.com/EAGQ1aYlOWs/1/0/1600w/canva-blue-colorful-illustrative-e-commerce-online-shop-logo-bHiX_0QpJxE.jpg"
-                    alt="Logo"
-                  />
-                </div>
-              </Link>
-              <div className="btn">
-                <Link to="/profile">
-                  <button className="profile">profile</button>
-                </Link>
-                <Link to="/createproduct">
-                  <button className="createproduct">Create Product</button>
-                </Link>
-                <Link to="/adminproducts">
-                  <button className="adminproducts">Admin Products</button>
-                </Link>
-                <Link to='/admin-orders'>
-                <button className="ordersproducts">Orders Product</button>
-                </Link>
-                <button className="logout" onClick={() => setlogoutmodel(true)}>
-                  Logout
-                </button>
-              </div>
-            </nav>
-          );
-        } else if (decodedToken.role === "user") {
-          return (
-            <nav>
-              <Link to="/">
-                <div className="logo">
-                  <img
-                    src="https://marketplace.canva.com/EAGQ1aYlOWs/1/0/1600w/canva-blue-colorful-illustrative-e-commerce-online-shop-logo-bHiX_0QpJxE.jpg"
-                    alt="Logo"
-                  />
-                </div>
-              </Link>
-              <div className="btn">
-                <Link to="/profile">
-                  <button className="profile">profile</button>
-                </Link>
-                <Link to='/cart'>
-                <button className="cart">cart</button> 
-                </Link>
-                <Link to='/track-order'><button className="orders">orders</button></Link>
-                <button className="logout" onClick={() => setlogoutmodel(true)}>
-                  Logout
-                </button>
-              </div>
-            </nav>
-          );
-        }
+      const decodedToken = jwtDecode(token);
+      if (decodedToken.role === "admin") {
+        return (
+          <>
+            <Link to="/profile" onClick={() => setIsMenuOpen(false)}>
+              <button className="nav-btn">Profile</button>
+            </Link>
+            <Link to="/createproduct" onClick={() => setIsMenuOpen(false)}>
+              <button className="nav-btn">Create Product</button>
+            </Link>
+            <Link to="/adminproducts" onClick={() => setIsMenuOpen(false)}>
+              <button className="nav-btn">Admin Products</button>
+            </Link>
+            <Link to="/admin-orders" onClick={() => setIsMenuOpen(false)}>
+              <button className="nav-btn">Orders</button>
+            </Link>
+            <button 
+              className="nav-btn logout" 
+              onClick={() => {
+                setlogoutmodel(true);
+                setIsMenuOpen(false);
+              }}
+            >
+              Logout
+            </button>
+          </>
+        );
       }
+      return (
+        <>
+          <Link to="/profile" onClick={() => setIsMenuOpen(false)}>
+            <button className="nav-btn">Profile</button>
+          </Link>
+          <Link to="/cart" onClick={() => setIsMenuOpen(false)}>
+            <button className="nav-btn">Cart</button>
+          </Link>
+          <Link to="/track-order" onClick={() => setIsMenuOpen(false)}>
+            <button className="nav-btn">Orders</button>
+          </Link>
+          <button 
+            className="nav-btn logout" 
+            onClick={() => {
+              setlogoutmodel(true);
+              setIsMenuOpen(false);
+            }}
+          >
+            Logout
+          </button>
+        </>
+      );
     } catch (error) {
       return (
-        <nav>
-          <Link to="/">
-            <div className="logo">
-              <img
-                src="https://marketplace.canva.com/EAGQ1aYlOWs/1/0/1600w/canva-blue-colorful-illustrative-e-commerce-online-shop-logo-bHiX_0QpJxE.jpg"
-                alt="Logo"
-              />
-            </div>
+        <>
+          <Link to="/signup" onClick={() => setIsMenuOpen(false)}>
+            <button className="nav-btn">Sign Up</button>
           </Link>
-          <div className="btn">
-            <Link to="/signup">
-              <button className="signup">signup</button>
-            </Link>
-            <Link to="/login">
-              <button className="login">login</button>
-            </Link>
-          </div>
-        </nav>
+          <Link to="/login" onClick={() => setIsMenuOpen(false)}>
+            <button className="nav-btn">Login</button>
+          </Link>
+        </>
       );
     }
   };
 
-  return <>{shownav()}</>;
+  return (
+    <nav className="navbar">
+      <Link to="/" className="logo">
+        <img
+          src="https://marketplace.canva.com/EAGQ1aYlOWs/1/0/1600w/canva-blue-colorful-illustrative-e-commerce-online-shop-logo-bHiX_0QpJxE.jpg"
+          alt="Logo"
+        />
+      </Link>
+      
+      <div className={`nav-links ${isMenuOpen ? "active" : ""}`}>
+        {generateButtons()}
+      </div>
+
+      <div 
+        className="hamburger" 
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        aria-label="Toggle navigation"
+      >
+        ☰
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;
