@@ -3,6 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import { Link } from "react-router-dom";
 import { isLoggedInContext } from "../contexts/isLoggedInContext";
 import "./Navbar.css";
+import logo from '../../public/logo.png'
 
 const Navbar = ({ isLoggedIn }) => {
   const { setlogoutmodel } = useContext(isLoggedInContext);
@@ -92,7 +93,7 @@ const Navbar = ({ isLoggedIn }) => {
     <nav className="navbar">
       <Link to="/" className="logo">
         <img
-          src="https://marketplace.canva.com/EAGQ1aYlOWs/1/0/1600w/canva-blue-colorful-illustrative-e-commerce-online-shop-logo-bHiX_0QpJxE.jpg"
+          src={logo}
           alt="Logo"
         />
       </Link>

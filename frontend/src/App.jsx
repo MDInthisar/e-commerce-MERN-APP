@@ -54,10 +54,14 @@ const App = () => {
                 </UserProtectedRoute>
               }
             />
-            <Route path="/track-order" element={
-              <UserProtectedRoute>
-                <TrackOrders/>
-              </UserProtectedRoute>}  />
+            <Route
+              path="/track-order"
+              element={
+                <UserProtectedRoute>
+                  <TrackOrders />
+                </UserProtectedRoute>
+              }
+            />
 
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
@@ -92,11 +96,14 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-            <Route path="/admin-orders" element={
-              <ProtectedRoute>
-                <AdminOrders/>
-              </ProtectedRoute>
-            }  />
+            <Route
+              path="/admin-orders"
+              element={
+                <ProtectedRoute>
+                  <AdminOrders />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
           {logoutmodel && <Logout />}
         </isLoggedInContext.Provider>

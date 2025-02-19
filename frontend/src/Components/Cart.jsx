@@ -86,7 +86,7 @@ const Cart = () => {
         <h3>your carts</h3>
         <div className="carts">
           {carts.length > 0 ? (
-            carts.map((data, i) => (
+            carts.slice().reverse().map((data, i) => (
               <div className="cart" key={i}>
                 <div className="proimg">
                   <img

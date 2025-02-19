@@ -19,12 +19,12 @@ const TrackOrders = () => {
       setorderss(response.data);
     };
     orders();
-  }, []);  
+  }, []);    
 
   return (
     <div className="track-orders-container">
       { orderss.length>0?
-      orderss.map((item, index) => (
+      orderss.slice().reverse().map((item, index) => (
         <div key={index} className="order-card">
           <h3>Address Details</h3>
           <p>

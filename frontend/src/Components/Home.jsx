@@ -25,7 +25,7 @@ const Home = () => {
         <h1>No products available</h1>
       ) : (
         <div className="products-container">
-          {products.map((product) => (
+          {products.slice().reverse().map((product) => (
             <div
               className="card"
               key={product._id}
