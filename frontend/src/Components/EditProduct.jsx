@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./EditProduct.css";
+import Loader from './Loader'
 
 const EditProduct = () => {
   const token = localStorage.getItem("token");
@@ -15,6 +16,8 @@ const EditProduct = () => {
   const [productPrice, setProductPrice] = useState("");
   const [stock, setStock] = useState("");
   const [productPhoto, setProductPhoto] = useState(null); // Handle file input
+
+  const [loading, setloading] = useState(false)
 
   const notifyError = (e) => toast.error(e);
   const notifySuccess = (e) => toast.success(e);
@@ -55,6 +58,7 @@ const EditProduct = () => {
   // Handle form submission
   const handleEdit = async (e) => {
     e.preventDefault();
+    setloading(true)
   
     const formdata = new FormData();
     formdata.append('productName', productName)
@@ -97,73 +101,82 @@ const EditProduct = () => {
   }
 
   return (
-    <div className="edit-product">
-      <div className="display">
-        <div className="product">
-          <div className="img">
-            <img
-              src={
-                productPhoto
-                  ? URL.createObjectURL(productPhoto)
-                  : product.productPhoto // Use optional chaining to prevent errors
-              }
-              alt="Product"
-              onClick={()=> handleImage()}
-              style={{cursor:'pointer'}}
-            />
+    <>
+    {
+      loading?(
+        <Loader/>
+      ):(
+        <div className="edit-product">
+        <div className="display">
+          <div className="product">
+            <div className="img">
+              <img
+                src={
+                  productPhoto
+                    ? URL.createObjectURL(productPhoto)
+                    : product.productPhoto // Use optional chaining to prevent errors
+                }
+                alt="Product"
+                onClick={()=> handleImage()}
+                style={{cursor:'pointer'}}
+              />
+            </div>
+            <h2 className="productName">
+              {productName || product.productName} {/* Show form value or product data */}
+            </h2>
+            <h4 className="productDescription">
+              {productDescription || product.productDescription}
+            </h4>
+            <h2 className="productPrice">
+              ₹ {productPrice || product.productPrice}
+            </h2>
+            <h2 className="stock">
+              stock : {stock || product.stock}
+            </h2>
           </div>
-          <h2 className="productName">
-            {productName || product.productName} {/* Show form value or product data */}
-          </h2>
-          <h4 className="productDescription">
-            {productDescription || product.productDescription}
-          </h4>
-          <h2 className="productPrice">
-            ₹ {productPrice || product.productPrice}
-          </h2>
-          <h2 className="stock">
-            stock : {stock || product.stock}
-          </h2>
+  
+          {/* Form to edit product */}
+          <form className="product-form" onSubmit={handleEdit}>
+            <h1 className="form-title">Edit Product</h1>
+            <input
+              className="input-field"
+              type="text"
+              value={productName} // Pre-fill with current product name
+              onChange={(e) => setProductName(e.target.value)}
+            />
+            <textarea
+              className="input-area"
+              value={productDescription} // Pre-fill with current description
+              onChange={(e) => setProductDescription(e.target.value)}
+            />
+            <input
+              className="input-field"
+              type="number"
+              value={productPrice} // Pre-fill with current price
+              onChange={(e) => setProductPrice(e.target.value)}
+            />
+            <input
+              className="input-field"
+              type="number"
+              value={stock} // Pre-fill with current stock
+              onChange={(e) => setStock(e.target.value)}
+            />
+            <input
+              ref={openImage}
+              className="input-file"
+              type="file"
+              accept="image/*"  // Accept only image files
+              onChange={(e) => setProductPhoto(e.target.files[0])}
+              style={{display:'none'}}
+            />
+            <button className="submit-btn">Edit Product</button>
+          </form>
         </div>
-
-        {/* Form to edit product */}
-        <form className="product-form" onSubmit={handleEdit}>
-          <h1 className="form-title">Edit Product</h1>
-          <input
-            className="input-field"
-            type="text"
-            value={productName} // Pre-fill with current product name
-            onChange={(e) => setProductName(e.target.value)}
-          />
-          <textarea
-            className="input-area"
-            value={productDescription} // Pre-fill with current description
-            onChange={(e) => setProductDescription(e.target.value)}
-          />
-          <input
-            className="input-field"
-            type="number"
-            value={productPrice} // Pre-fill with current price
-            onChange={(e) => setProductPrice(e.target.value)}
-          />
-          <input
-            className="input-field"
-            type="number"
-            value={stock} // Pre-fill with current stock
-            onChange={(e) => setStock(e.target.value)}
-          />
-          <input
-            ref={openImage}
-            className="input-file"
-            type="file"
-            accept="image/*"  // Accept only image files
-            onChange={(e) => setProductPhoto(e.target.files[0])}
-            style={{display:'none'}}
-          />
-          <button className="submit-btn">Edit Product</button>
-        </form>
       </div>
-    </div>
+      )
+    }
+    </>
+
   );
 };
 

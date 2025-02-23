@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Cart.css";
+import Loader from './Loader'
 import { FaTrash } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -10,6 +11,8 @@ const Cart = () => {
   const [carts, setcarts] = useState([]);
   const [total, settotal] = useState(0);
   const [openBuy, setopenBuy] = useState(false);
+
+  const [loading, setloading] = useState(false)
 
   const notifyError = (e) => toast.error(e);
   const notifySuccess = (e) => toast.success(e);
@@ -60,6 +63,7 @@ const Cart = () => {
 
   const handleBuy = async () => {
     try {
+      setloading(true)
       const response = await axios.post(
         `${import.meta.env.VITE_APP_BACKEND_URL}/user/orderproduct`,
         {},
@@ -77,12 +81,18 @@ const Cart = () => {
       }
     } catch (error) {
       notifyError(error.message);
+    } finally{
+      setloading(false)
     }
   };
 
   return (
     <>
-      <div className="allcarts">
+    {
+      loading?(
+        <Loader/>
+      ):(
+        <div className="allcarts">
         <h3>your carts</h3>
         <div className="carts">
           {carts.length > 0 ? (
@@ -138,6 +148,9 @@ const Cart = () => {
           </div>
         )}
       </div>
+      )
+    }
+
     </>
   );
 };

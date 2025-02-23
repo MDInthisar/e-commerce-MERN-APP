@@ -23,6 +23,7 @@ import Cart from "./Components/Cart.jsx";
 import UserProtectedRoute from "./Components/UserProtectedRoute.jsx";
 import TrackOrders from "./Components/TrackOrders.jsx";
 import AdminOrders from "./Components/AdminOrders.jsx";
+import NotFound from "./Components/NotFound.jsx";
 
 const App = () => {
   const [isLoggedIn, setisLoggedIn] = useState(false);
@@ -37,6 +38,7 @@ const App = () => {
           <ToastContainer theme="dark" />
           <Navbar isLoggedIn={isLoggedIn} />
           <Routes>
+            <Route path="*" element={<NotFound />} />
             <Route path="/" element={<Home />} />
             <Route
               path="/product-details/:id"

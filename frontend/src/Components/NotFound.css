@@ -1,0 +1,37 @@
+.notfound-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #1c1c1c; /* Dark background */
+    color: #fff;
+    text-align: center;
+}
+
+.notfound-container h1 {
+    font-size: 6rem;
+    margin: 0;
+    color: #3498db; /* Blue color for the 404 number */
+}
+
+.notfound-container p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #ccc; /* Light grey text */
+}
+
+.home-button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}

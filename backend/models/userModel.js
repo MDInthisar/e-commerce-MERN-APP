@@ -20,7 +20,7 @@ const userSchema = mongoose.Schema({
     doorNo: { type: String },
     streetName: { type: String },
     pincode: { type: String },
-    phonoNo: { type: Number },
+    phonoNo: { type: String },
   },
   role: {
     type: String,

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
+import Loader from "./Loader";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -29,6 +30,8 @@ const ProfilePage = () => {
         }
       } catch (error) {
         notifyError(error.message);
+      } finally{
+        setloading(false)
       }
     };
     if (token) {
@@ -38,7 +41,7 @@ const ProfilePage = () => {
   
 
   if (!userData) {
-    return <h1>Loding ..........</h1>;
+    return <Loader/>;
   }
 
   const handleEdit = () => {

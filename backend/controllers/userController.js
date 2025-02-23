@@ -13,9 +13,7 @@ export const allProduct = async (req, res) => {
   }
 };
 
-export const singleProduct = async (req, res) => {  
-  console.log(req.params.id);
-  
+export const singleProduct = async (req, res) => {    
   const product = await productModel.findOne({ _id: req.params.id }).populate({
     path: "productOwner",
     select: "-password",
@@ -52,7 +50,13 @@ export const profileUpdate = async (req, res) => {
   const user = await userModel.findOne({ _id: req.user.userID });
 
   if (!user) return res.json({ error: "user not found" });
-
+  
+  if (username && username !== user.username) {
+    const existingUser = await userModel.findOne({ username });
+    if (existingUser) {
+      return res.status(400).json({ error: "Username already exists" });
+    }
+  }
   if (file) {
     if (user.profilePic) {
       await cloudinary.v2.uploader.destroy(
@@ -74,7 +78,7 @@ export const profileUpdate = async (req, res) => {
   await user.save();
 
   res.json({ message: "profile updated" });
-};
+}; 
 
 export const allCart = async (req, res) => {
   const user = await userModel

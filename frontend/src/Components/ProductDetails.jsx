@@ -4,6 +4,8 @@ import './ProductDetails.css'
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Home from './Home'
+import Loader from './Loader';
+import { FaMinus, FaPlus } from 'react-icons/fa';
 
 const ProductDetails = () => {
     const token = localStorage.getItem('token')
@@ -31,8 +33,10 @@ const ProductDetails = () => {
     }, [id])
 
     if(!productdetail){
-        return <h1>no product</h1>
-    }
+        return(
+            <Loader/>
+        )
+    }    
     
     const handleToCart = async (productID, quantity)=>{
        if(cartcount === 0) return notifyError('Please select quantity')
@@ -56,6 +60,20 @@ const ProductDetails = () => {
             return;
         }
     }
+
+    const minus = ()=>{
+        if(cartcount>0){
+            setcartcount(cartcount-1)
+        }
+    }
+
+    const add = ()=>{
+        if(cartcount<5){
+            setcartcount(cartcount+1)
+        }else{
+            notifyError('5 Item only')
+        }
+    }
     
   return (
     <>
@@ -75,8 +93,10 @@ const ProductDetails = () => {
             </div>
             <div className="btns">
                 <button onClick={()=>handleToCart(productdetail._id, cartcount)}>Add to Cart</button>
-                <button>Buy now</button>
-                <button onClick={()=> setcartcount(cartcount+1)}>{cartcount}</button>
+                {/* <button>Buy now</button> */}
+                <FaPlus onClick={()=> add()} style={{cursor:'pointer'}} />
+                <button >{cartcount}</button>
+                <FaMinus onClick={()=> minus()} style={{cursor:'pointer'}} />
             </div>
         </div>
     </div>
