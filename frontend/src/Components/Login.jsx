@@ -5,11 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 import {isLoggedInContext} from '../contexts/isLoggedInContext'
 
 import "./Login.css";
+import { FaAd, FaEye, FaEyeDropper, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
 
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
+  const [spass, setspass] = useState(false)
 
   const {setisLoggedIn} = useContext(isLoggedInContext)
 
@@ -59,12 +61,19 @@ const Login = () => {
         <div>
           <label htmlFor="password">Password:</label>
           <input
-            type="password"
+            type={spass? 'text': 'password'}
             id="password"
             name="password"
             value={password}
             onChange={(e) => setpassword(e.target.value)}
-          />
+          />{
+            spass?(
+              <FaEyeSlash onClick={()=>setspass(false)} />
+            ):(
+              <FaEye onClick={()=>setspass(true)}/>
+            )
+          }
+          
         </div>
 
         <button type="submit">Login</button>

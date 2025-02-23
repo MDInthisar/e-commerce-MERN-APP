@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 
 import "./SignUp.css";
 import { Link, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Signup = () => {
   const [name, setname] = useState("");
@@ -11,12 +12,8 @@ const Signup = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
+  const [spass, setspass] = useState(false);
   const [role, setrole] = useState("");
-
-  useEffect(() => {
-    
-  }, [])
-  
 
   const notifyError = (e) => toast.error(e);
   const notifySuccess = (e) => toast.success(e);
@@ -104,12 +101,17 @@ const Signup = () => {
         <div>
           <label htmlFor="password">Password:</label>
           <input
-            type="password"
+            type={spass? 'text': 'password'}
             id="password"
             name="password"
             value={password}
             onChange={(e) => setpassword(e.target.value)}
           />
+          {spass?(
+            <FaEyeSlash onClick={()=> setspass(false)} />
+          ):(
+            <FaEye onClick={()=> setspass(true)} />
+          )}
         </div>
   
         <div>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./EditProduct.css";
@@ -83,6 +83,12 @@ const EditProduct = () => {
       notifyError(error.response?.data?.message || "Something went wrong");
     }
   };
+
+  const openImage = useRef(null);
+  const handleImage = ()=>{
+    openImage.current.click()
+
+  }
   
 
   // Ensure product data is available before rendering
@@ -102,6 +108,8 @@ const EditProduct = () => {
                   : product.productPhoto // Use optional chaining to prevent errors
               }
               alt="Product"
+              onClick={()=> handleImage()}
+              style={{cursor:'pointer'}}
             />
           </div>
           <h2 className="productName">
@@ -145,10 +153,12 @@ const EditProduct = () => {
             onChange={(e) => setStock(e.target.value)}
           />
           <input
+            ref={openImage}
             className="input-file"
             type="file"
             accept="image/*"  // Accept only image files
             onChange={(e) => setProductPhoto(e.target.files[0])}
+            style={{display:'none'}}
           />
           <button className="submit-btn">Edit Product</button>
         </form>

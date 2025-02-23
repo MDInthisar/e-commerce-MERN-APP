@@ -15,7 +15,6 @@ const storage = multer.diskStorage({
 });
 
 // const storage = multer.memoryStorage();
-
 const ownerProductImages = multer({storage});
 
-export default ownerProductImages
+export default ownerProductImages;
