@@ -3,11 +3,13 @@ import { data, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios, { all } from 'axios';
 import {FaEdit, FaTrash} from 'react-icons/fa'
+import Loader from './Loader';
 
 import './AdminProducts.css'
 
 const Adminproducts = () => {
   const [allproducts, setallproducts] = useState([]);
+  const [loading, setloading] = useState(true)
   const token = localStorage.getItem('token');
 
   const notifyError = (e) => toast.error(e);
@@ -32,6 +34,8 @@ const Adminproducts = () => {
         }
       } catch (error) {
         notifyError(error.message);
+      }finally{
+        setloading(false)
       }
     };
     adminproducts();
@@ -58,39 +62,46 @@ const Adminproducts = () => {
   }
 
 return (
-  <div className="admin-products-container">
-    <h2>Admin Products</h2>
-    <div className="products-grid">
-      {allproducts.length > 0 ? (
-        allproducts.map((product) => (
-          <div className="product-card" key={product._id}>
-            <div className="product-image">
-              <img
-                src={product.productPhoto}
-                alt={product.productName}
-              />
-            </div>
-            <div className="product-details">
-              <div className="product-actions">
-                <FaEdit onClick={() => handleEdit(product._id)} />
-                <FaTrash onClick={() => handleDelete(product._id)} />
+  <>
+  {
+    loading?<Loader/>:(
+      <div className="admin-products-container">
+      <h2>Admin Products</h2>
+      <div className="products-grid">
+        {allproducts.length > 0 ? (
+          allproducts.map((product) => (
+            <div className="product-card" key={product._id}>
+              <div className="product-image">
+                <img
+                  src={product.productPhoto}
+                  alt={product.productName}
+                />
               </div>
-              <h3>{product.productName}</h3>
-              <p className="description">{product.productDescription}</p>
-              <p>
-                Price: <span>₹{product.productPrice}</span>
-              </p>
-              <p>
-                Stock: <span>{product.stock}</span>
-              </p>
+              <div className="product-details">
+                <div className="product-actions">
+                  <FaEdit onClick={() => handleEdit(product._id)} />
+                  <FaTrash onClick={() => handleDelete(product._id)} />
+                </div>
+                <h3>{product.productName}</h3>
+                <p className="description">{product.productDescription}</p>
+                <p>
+                  Price: <span>₹{product.productPrice}</span>
+                </p>
+                <p>
+                  Stock: <span>{product.stock}</span>
+                </p>
+              </div>
             </div>
-          </div>
-        ))
-      ) : (
-        <p className="no-products">No products found</p>
-      )}
+          ))
+        ) : (
+          <p className="no-products">No products found</p>
+        )}
+      </div>
     </div>
-  </div>
+    )
+  }
+  </>
+
 );
 
 };

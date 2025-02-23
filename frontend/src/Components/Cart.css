@@ -152,3 +152,144 @@
   transform: scale(0.95); /* Button click effect */
 }
 
+@media (max-width: 600px) {
+
+  .allcarts h3 {
+    margin: 2vw 0;
+    font-size: 8vw;
+}
+
+  .carts .cart {
+    display: flex;
+    align-items: self-start;
+    gap: 2vw;
+    flex-direction: column;
+    width: 100%;
+    padding: 5vw 2vw;
+    font-size: 4.5vw;
+}
+
+.cart .proimg {
+  width: 20vw;
+  height: 20vw;
+  background-color: black;
+}
+
+.cart button {
+  padding: 1vw 40vw;
+  background-color: crimson;
+  color: black;
+  border: none;
+  border-radius: 1vw;
+  cursor: pointer;
+  font-size: 5.2vw;
+  transition: background-color 0.3sease, transform 0.2sease;
+}
+
+.total {
+  width: 90vw;
+  min-height: 2vw;
+  background-color: #fff;
+  position: absolute;
+  bottom: 5%;
+  position: fixed;
+  border-radius: 1vw;
+  color: black;
+  font-size: 5.5vw;
+  font-family: sans-serif;
+  border: 0.2vw solid rgb(0 0 0);
+}
+
+.total .amount button {
+  padding: 1vw 1.5vw;
+  font-size: 6vw;
+  background: black;
+  margin: 2vw;
+}
+
+.openbuy .buymodel {
+  width: 70%;
+  height: 40%;
+}
+
+.buymodel h1 {
+  font-size: 6vw;
+}
+
+.buymodel .btns button {
+  padding: 1vw 2vw;
+  font-size: 5vw;
+}
+
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .allcarts h3 {
+    margin: 2vw 0;
+    font-size: 8vw;
+}
+
+.carts .cart {
+  display: flex;
+  align-items: self-start;
+  gap: 2vw;
+  flex-direction: column;
+  width: 100%;
+  padding: 5vw 2vw;
+  font-size: 2.5vw;
+}
+.cart .proimg {
+  width: 20vw;
+  height: 20vw;
+  background-color: black;
+}
+
+.cart button {
+  padding: 1vw 40vw;
+  background-color: crimson;
+  color: black;
+  border: none;
+  border-radius: 1vw;
+  cursor: pointer;
+  font-size: 3vw;
+  transition: background-color 0.3sease, transform 0.2sease;
+}
+
+.total {
+  width: 90vw;
+  min-height: 2vw;
+  background-color: #fff;
+  position: absolute;
+  bottom: 5%;
+  position: fixed;
+  border-radius: 1vw;
+  color: black;
+  font-size: 2.5vw;
+  font-family: sans-serif;
+  border: 0.2vw solid rgb(0 0 0);
+}
+
+.total .amount button {
+  padding: 1vw 1.5vw;
+  font-size: 3vw;
+  background: black;
+  margin: 2vw;
+}
+
+.openbuy .buymodel {
+  width: 65%;
+  height: 40%;
+}
+
+.buymodel h1 {
+  font-size: 4vw;
+}
+
+
+
+.buymodel .btns button {
+  padding: 1vw 2vw;
+  font-size: 4vw;
+}
+
+}

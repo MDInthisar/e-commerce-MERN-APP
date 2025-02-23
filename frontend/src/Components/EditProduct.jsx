@@ -50,6 +50,8 @@ const EditProduct = () => {
         }
       } catch (error) {
         notifyError(error.message);
+      }finally{
+        setloading(false)
       }
     };
     singleProduct();
@@ -97,7 +99,7 @@ const EditProduct = () => {
 
   // Ensure product data is available before rendering
   if (!product) {
-    return <p>Loading product...</p>;
+    return <Loader/>
   }
 
   return (

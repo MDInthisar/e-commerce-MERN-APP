@@ -1,108 +1,41 @@
-/* Flex container to align form on the left and product display on the right */
 .display {
   display: flex;
-  justify-content: space-between;
-  padding: 5vh 5vw;
-  max-width: 90vw;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
-/* Form styling */
 .product-form {
-  width: 45vw;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 2vh;
+  gap: 1.2rem;
+  padding: 1.5rem;
+  border-radius: 0.8rem;
   background-color: #000000;
   color: white;
-  padding: 3vh 2vw;
-  border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.form-title {
-  margin-bottom: 2vh;
-  font-size: 3vh;
-  /* color: #444; */
-}
-
-.input-field {
-  padding: 1.5vh 1vw;
-  font-size: 2vh;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #fff;
-  transition: border-color 0.3s ease;
-}
-
-.input-field:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-.input-file {
-  border: none;
-}
-
-.input-file:hover {
-  cursor: pointer;
-  background-color: #e9e9e9;
-}
-
-/* Textarea styling */
-.input-area {
-  width: 100%;
-  height: 100px;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  resize: none; /* Prevents the textarea from being resizable */
-  box-sizing: border-box;
-}
-
-.input-area:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-/* Button styling */
-.submit-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.submit-btn:hover {
-  background-color: #0056b3;
-}
-
-/* Product card styling */
 .product {
-  width: 25vw;
-  padding: 3vh 2vw;
-  border: 1px solid #ddd;
-  border-radius: 15px;
+  flex: 1;
+  padding: 1.5rem;
+  border-radius: 0.8rem;
   background-color: #000000;
   color: white;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Ensure title and price stay in different places */
 }
 
-/* Image container styling */
 .img {
   width: 100%;
-  height: 35vh;
-  border-radius: 12px;
+  aspect-ratio: 1/1;
+  border-radius: 0.8rem;
   overflow: hidden;
-  margin-bottom: 2vh;
-  background-color: #f2f2f2;
+  margin-bottom: 1rem;
 }
 
 .img img {
@@ -111,42 +44,133 @@
   object-fit: cover;
 }
 
-/* Product title and description styling */
 .productName {
-  font-size: 1.5vw;
-  font-weight: 700;
-  /* color: #222; */
-  text-align: left;
-  margin-bottom: 1vh;
-  word-wrap: break-word; /* Allows long words to wrap onto the next line */
-  white-space: normal; /* Ensures the text wraps normally */
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
 }
 
-.productDescption {
-  font-size: 1vw;
-  /* color: #555; */
-  font-weight: 500;
-  text-align: left;
-  margin-bottom: 2vh;
-  word-wrap: break-word; /* Allows long words to wrap onto the next line */
-  white-space: normal; /* Ensures the text wraps normally */
+.productDescription {
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-bottom: auto;
 }
 
 .productPrice {
-  font-size: 2vh;
-  /* color: #555; */
-  font-weight: 500;
-  text-align: left;
-  margin-top: auto; /* Push the price to the bottom */
-  padding-top: 2vh;
-  border-top: 1px solid #ddd; /* Optional border for separating price visually */
-  word-wrap: break-word; /* Allows long words to wrap onto the next line */
-  white-space: normal; /* Ensures the text wraps normally */
+  font-size: 1.4rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
 }
 
-/* Additional hover effect for product card */
-.product:hover {
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
-  transform: translateY(-3px);
-  transition: all 0.3s ease;
+/* Tablet (768px and up) */
+@media (min-width: 768px) {
+  .display {
+    flex-direction: row;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .product-form {
+    padding: 2rem;
+  }
+
+  .product {
+    padding: 2rem;
+    max-width: 400px;
+  }
+
+  .productName {
+    font-size: 1.8rem;
+  }
+}
+
+/* Laptop (1024px and up) */
+@media (min-width: 1024px) {
+  .display {
+    padding: 3rem;
+    gap: 3rem;
+  }
+
+  .product-form {
+    padding: 3rem;
+    gap: 1.5rem;
+  }
+
+  .input-field {
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .input-area {
+    height: 120px;
+  }
+
+  .productName {
+    font-size: 2rem;
+  }
+
+  .productPrice {
+    font-size: 1.8rem;
+  }
+}
+
+/* Desktop (1440px and up) */
+@media (min-width: 1440px) {
+  .display {
+    max-width: 1600px;
+  }
+
+  .img {
+    aspect-ratio: 4/3;
+  }
+}
+
+/* Mobile Landscape */
+@media (max-width: 767px) and (orientation: landscape) {
+  .display {
+    flex-direction: row;
+  }
+  
+  .img {
+    aspect-ratio: 1.5/1;
+  }
+}
+
+/* Form Elements */
+.input-field {
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.6rem;
+  border: 1px solid #ccc;
+  background: white;
+}
+
+.input-area {
+  height: 100px;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-radius: 0.6rem;
+  resize: vertical;
+}
+
+.submit-btn {
+  padding: 1rem;
+  font-size: 1.1rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+/* Hover effects only for desktop */
+@media (hover: hover) {
+  .submit-btn:hover {
+    opacity: 0.9;
+  }
+
+  .product:hover {
+    transform: translateY(-3px);
+    transition: transform 0.3s ease;
+  }
 }

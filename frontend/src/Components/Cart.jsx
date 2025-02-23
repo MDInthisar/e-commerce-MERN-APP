@@ -139,7 +139,7 @@ const Cart = () => {
         {openBuy && (
           <div className="openbuy" onClick={() => setopenBuy(false)}>
             <div className="buymodel">
-              <h1>only COD avalable</h1>
+              <h1>COD avalable</h1>
               <div className="btns">
                 <button onClick={() => handleBuy()}>Buy</button>
                 <button onClick={() => setopenBuy(false)}>Cancel</button>

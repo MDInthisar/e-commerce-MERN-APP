@@ -1,83 +1,135 @@
 /* LoginForm.css */
-.l-container{
-  width: 100vw;
-  height: 90vh;background-color: #212121;
-  display: flex;align-items: center;justify-content: center;
+.l-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #212121;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
 }
 
 .login-container {
-  height: 23vw;
-  /* max-width: 400px; */
-  /* margin: 50px auto; */
   background-color: #000000;
   color: white;
-  padding: 30px;
+  padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
-  width: 25vw;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
 }
 
 .login-container h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 1rem;
 }
 
 .login-form div {
+  position: relative;
   display: flex;
   flex-direction: column;
   text-align: left;
 }
 
 .login-form label {
-  margin-bottom: 5px;
-  font-size: 14px;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .login-form input[type="text"],
 .login-form input[type="password"] {
-  padding: 10px;
+  padding: 0.8rem;
   border: 1px solid #ccc;
   border-radius: 8px;
-  font-size: 14px;
-  transition: border-color 0.3s ease;
+  font-size: 1rem;
+  width: 100%;
 }
 
-.login-form input[type="text"]:focus,
-.login-form input[type="password"]:focus {
-  border-color: #007bff; /* Blue border on focus */
-  outline: none;
+.login-form svg {
+  position: absolute;
+  right: 10px;
+  top: 38px;
+  cursor: pointer;
 }
 
 button[type="submit"] {
-  padding: 12px;
-  background-color: #007bff; /* Blue background */
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button[type="submit"]:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  padding: 0.8rem;
+  font-size: 1rem;
+  margin-top: 1rem;
 }
 
 .login-container a {
-  display: block;
-  margin-top: 10px;
-  text-decoration: none;
-  font-size: 14px;
-  color: #007bff;
-  transition: color 0.3s ease;
+  margin-top: 1rem;
+  font-size: 0.9rem;
 }
 
-.login-container a:hover {
-  color: #0056b3; /* Darker blue on hover */
+/* Tablet Styles (min-width: 768px) */
+@media (min-width: 768px) {
+  .login-container {
+    padding: 2.5rem;
+  }
+  
+  .login-container h2 {
+    font-size: 1.75rem;
+  }
+  
+  .login-form input[type="text"],
+  .login-form input[type="password"] {
+    padding: 1rem;
+  }
+  
+  button[type="submit"] {
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* Desktop Styles (min-width: 1024px) */
+@media (min-width: 1024px) {
+  .login-container {
+    padding: 3rem;
+  }
+  
+  .login-container h2 {
+    font-size: 2rem;
+  }
+  
+  .login-form label {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile Landscape */
+@media (max-width: 767px) and (orientation: landscape) {
+  .l-container {
+    padding: 0.5rem;
+  }
+  
+  .login-container {
+    padding: 1.5rem;
+  }
+  
+  .login-form input[type="text"],
+  .login-form input[type="password"] {
+    padding: 0.6rem;
+  }
+}
+
+/* Hover effects for devices that support hover */
+@media (hover: hover) {
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  .login-container a:hover {
+    color: #0056b3;
+  }
 }

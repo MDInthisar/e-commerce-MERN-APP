@@ -1,132 +1,193 @@
-/* General container for the form */
-.edit-profile-container {
-    max-width: 1000px;
-    margin: 50px auto;
-    padding: 30px;
-    background: linear-gradient(135deg, #000000, #000000);
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    color: rgb(255, 255, 255);
-  }
-  
-  /* Header Style */
-  h2 {
-    text-align: center;
-    font-size: 28px;
-  }
-  
-  /* Form Layout (flex for side-by-side) */
-  .edit-profile-form {
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
-    flex-wrap: wrap;
-  }
-  
-  /* Profile Image Section */
-  .profile-image-section {
-    flex-basis: 30%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-left: 6vw;
-    gap: 10px;
-    justify-content: center;
+.edit-product {
+  width: 100%;
+  min-height: 100vh;
+  padding: 1rem;
+  background-color: #0f172a;
+  color: #f8fafc;
 }
-  
-  .profile-image-section input[type="file"] {
-    padding: 8px;
-    font-size: 14px;
+
+.display {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product {
+  width: 100%;
+  padding: 1rem;
+  background: #1e293b;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.product-form {
+  width: 100%;
+  padding: 1rem;
+  background: #1e293b;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #2dd4bf;
+  text-align: center;
+}
+
+.img {
+  width: 100%;
+  height: 250px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.productName {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.productDescription {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin-bottom: 1rem;
+}
+
+.productPrice,
+.stock {
+  font-size: 1.1rem;
+  color: #2dd4bf;
+}
+
+.input-field,
+.input-area {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #334155;
+  border-radius: 0.5rem;
+  background: #0f172a;
+  color: #f8fafc;
+  font-size: 1rem;
+}
+
+.input-area {
+  height: 100px;
+  resize: vertical;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 1rem;
+  background-color: #2dd4bf;
+  color: #0f172a;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+/* Tablet (768px) */
+@media (min-width: 768px) {
+  .display {
+    flex-direction: row;
+    gap: 2rem;
+    padding: 2rem 1rem;
   }
-  
-  .profile-image-preview {
-    margin-top: 15px;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #ddd;
+
+  .product {
+    width: 40%;
+    padding: 2rem;
   }
-  
-  /* Form Fields Section */
-  .form-fields-section {
-    flex-basis: 65%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    justify-content: space-between;
+
+  .product-form {
+    width: 60%;
+    padding: 2rem;
   }
-  
-  /* Form Group */
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+
+  .img {
+    height: 300px;
   }
-  
-  /* Labels */
-  label {
-    font-size: 14px;
-    color: white;
-    font-weight: bold;
+
+  .form-title {
+    font-size: 1.75rem;
   }
-  
-  /* Inputs with modern look */
-  input {
-    padding: 15px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    transition: all 0.3s ease;
+
+  .productName {
+    font-size: 1.5rem;
   }
-  
-  input:focus {
-    border-color: #000000;
-    outline: none;
-    box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+
+  .productDescription {
+    font-size: 1rem;
   }
-  
-  input::placeholder {
+}
+
+/* Laptop (1024px) */
+@media (min-width: 1024px) {
+  .display {
+    padding: 3rem 2rem;
   }
-  
-  /* Submit Button */
-  button.submit-btn {
-    padding: 15px;
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+  .img {
+    height: 350px;
   }
-  
-  button.submit-btn:hover {
-    background-color: #000000;
-    color: white;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+
+  .input-field,
+  .input-area {
+    padding: 1rem;
+    font-size: 1.1rem;
   }
-  
-  /* Media Queries for Responsiveness */
-  @media (max-width: 768px) {
-    .edit-profile-form {
-      flex-direction: column;
-      gap: 20px;
-    }
-  
-    .profile-image-section {
-      flex-basis: 100%;
-      align-items: flex-start;
-    }
-  
-    .form-fields-section {
-      flex-basis: 100%;
-    }
+
+  .submit-btn {
+    padding: 1.2rem;
+    font-size: 1.1rem;
   }
-  
+}
+
+/* Desktop (1440px) */
+@media (min-width: 1440px) {
+  .img {
+    height: 400px;
+  }
+
+  .productName {
+    font-size: 1.75rem;
+  }
+}
+
+/* Mobile Landscape */
+@media (max-width: 767px) and (orientation: landscape) {
+  .img {
+    height: 200px;
+  }
+
+  .product-form {
+    padding: 0.5rem;
+  }
+}
+
+/* Hover effects for non-touch devices */
+@media (hover: hover) {
+  .submit-btn:hover {
+    opacity: 0.9;
+  }
+
+  .img img {
+    transition: transform 0.3s ease;
+  }
+
+  .img:hover img {
+    transform: scale(1.05);
+  }
+}

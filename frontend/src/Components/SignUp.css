@@ -1,111 +1,158 @@
 /* SignupForm.css */
-.s-container{
-  width: 100vw;
-  height: 90vh;
+.s-container {
+  width: 100%;
+  min-height: 100vh;
   background-color: rgb(25, 24, 24);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
 }
 
 .signup-container {
-  max-width: 400px;
-  margin: 0 auto;
   background-color: rgb(0, 0, 0);
-  padding: 30px;
+  padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   color: white;
   text-align: center;
+  width: 100%;
+  max-width: 400px;
 }
 
 .signup-container h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .signup-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 1rem;
 }
 
 .signup-form div {
+  position: relative;
   display: flex;
   flex-direction: column;
   text-align: left;
 }
 
 .signup-form label {
-  margin-bottom: 5px;
-  font-size: 14px;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .signup-form input[type="text"],
 .signup-form input[type="password"] {
-  padding: 10px;
+  padding: 0.8rem;
   border: 1px solid #ccc;
   border-radius: 8px;
-  font-size: 14px;
-  transition: border 0.3s ease;
+  font-size: 1rem;
+  width: 100%;
 }
 
-.signup-form input[type="text"]:focus,
-.signup-form input[type="password"]:focus {
-  border-color: #007BFF;
-  outline: none;
+.signup-form svg {
+  position: absolute;
+  right: 10px;
+  top: 38px;
+  cursor: pointer;
 }
 
 .role-container {
-  margin-top: 15px;
+  margin-top: 1rem;
 }
 
 .roles {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-top: 10px;
-  gap: 1vw;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .role-item {
   display: flex;
   align-items: center;
-  gap: 5px;
-}
-
-.role-item label {
-  font-size: 14px;
+  gap: 0.5rem;
 }
 
 .signup-form input[type="radio"] {
-  accent-color: #007BFF; /* Blue color for radio buttons */
+  accent-color: #007BFF;
+  width: 1rem;
+  height: 1rem;
 }
 
 button[type="submit"] {
-  padding: 12px;
-  background-color: #007BFF;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 20px;
+  padding: 0.8rem;
+  font-size: 1rem;
+  margin-top: 1.5rem;
 }
 
-button[type="submit"]:hover {
-  background-color: #0056b3;
+/* Tablet Styles (768px and up) */
+@media (min-width: 768px) {
+  .signup-container {
+    padding: 2rem;
+  }
+
+  .signup-container h2 {
+    font-size: 1.75rem;
+  }
+
+  .roles {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .signup-form input[type="text"],
+  .signup-form input[type="password"] {
+    padding: 1rem;
+  }
+
+  button[type="submit"] {
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
 }
 
-.signup-form a {
-  display: inline-block;
-  margin-top: 10px;
-  text-decoration: none;
-  font-size: 14px;
-  color: #007BFF;
-  transition: color 0.3s ease;
+/* Desktop Styles (1024px and up) */
+@media (min-width: 1024px) {
+  .signup-container h2 {
+    font-size: 2rem;
+  }
+
+  .signup-form label {
+    font-size: 1rem;
+  }
 }
 
-.signup-form a:hover {
-  color: #0056b3;
+/* Mobile Landscape */
+@media (max-width: 767px) and (orientation: landscape) {
+  .s-container {
+    padding: 0.5rem;
+  }
+
+  .signup-container {
+    padding: 1rem;
+  }
+
+  .signup-form input[type="text"],
+  .signup-form input[type="password"] {
+    padding: 0.6rem;
+  }
+
+  button[type="submit"] {
+    margin-top: 1rem;
+    padding: 0.6rem;
+  }
+}
+
+/* Hover effects for devices that support hover */
+@media (hover: hover) {
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+
+  .signup-form a:hover {
+    color: #0056b3;
+  }
 }
