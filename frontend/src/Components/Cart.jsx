@@ -50,7 +50,7 @@ const Cart = () => {
         const updatedcarts = carts.filter((cart) => cart.product._id !== id);
         setcarts(updatedcarts);
         const updatedTotal = updatedcarts.reduce((total, curr) => {
-          total + curr.product.productPrice * curr.quantity;
+          return total + curr.product.productPrice * curr.quantity;          
         }, 0);
         settotal(updatedTotal);
       } else {
@@ -85,6 +85,7 @@ const Cart = () => {
       setloading(false)
     }
   };
+  
 
   return (
     <>
@@ -133,7 +134,10 @@ const Cart = () => {
           <div className="amount">
             <p>Amount</p>
             <p>₹ {total}</p>
+            <div className="buttons">
+            <button style={{marginRight: '1vw'}}>UPI</button>
             <button onClick={() => setopenBuy(true)}>Buy</button>
+            </div>
           </div>
         </div>
         {openBuy && (

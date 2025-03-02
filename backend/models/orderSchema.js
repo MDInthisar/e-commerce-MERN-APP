@@ -24,7 +24,7 @@ const orderSchema = mongoose.Schema({
   },
   paymentMethods:{
     type:String,
-    enum:['COD'],
+    enum:['COD', 'UPI'],
   },
   shippingAddress: {
     doorNo: { type: String },

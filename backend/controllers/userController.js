@@ -13,7 +13,7 @@ export const allProduct = async (req, res) => {
   }
 };
 
-export const singleProduct = async (req, res) => {    
+export const singleProduct = async (req, res) => {
   const product = await productModel.findOne({ _id: req.params.id }).populate({
     path: "productOwner",
     select: "-password",
@@ -45,12 +45,12 @@ export const profile = async (req, res) => {
 
 export const profileUpdate = async (req, res) => {
   const { name, username, doorNo, streetName, pincode, phonoNo } = req.body;
-  const file = req.file;  
+  const file = req.file;
   let profilePic;
   const user = await userModel.findOne({ _id: req.user.userID });
 
   if (!user) return res.json({ error: "user not found" });
-  
+
   if (username && username !== user.username) {
     const existingUser = await userModel.findOne({ username });
     if (existingUser) {
@@ -78,7 +78,7 @@ export const profileUpdate = async (req, res) => {
   await user.save();
 
   res.json({ message: "profile updated" });
-}; 
+};
 
 export const allCart = async (req, res) => {
   const user = await userModel

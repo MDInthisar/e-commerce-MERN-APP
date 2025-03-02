@@ -63,9 +63,6 @@ const EditProfile = () => {
         } finally{
           setloading(false)
         }
-
-        
-        
     }
     
 
