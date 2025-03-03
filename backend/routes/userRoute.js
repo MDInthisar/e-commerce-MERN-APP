@@ -13,6 +13,8 @@ import {
   removeCart,
   orderProduct,
   trackOrder,
+  upiProduct,
+  verifyUpi,
   bookedProduct,
 } from "../controllers/userController.js";
 import islogedIn from "../middlewares/islogedIn.js";
@@ -29,6 +31,8 @@ router.post("/addtocart", islogedIn, addToCart);
 router.delete("/removecart/:id", islogedIn, removeCart);
 router.get("/allcarts", islogedIn, allCart);
 router.post("/orderproduct", islogedIn, orderProduct);
+router.post("/upiproduct", islogedIn, upiProduct);
+router.post("/verifyupi", islogedIn, verifyUpi);
 router.get('/trackorder', islogedIn, trackOrder);
 
 // admin

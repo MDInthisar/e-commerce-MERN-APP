@@ -2,6 +2,8 @@ import orderModel from "../models/orderSchema.js";
 import productModel from "../models/productModel.js";
 import userModel from "../models/userModel.js";
 import cloudinary from "cloudinary";
+import Razorpay from "razorpay";
+import Crypto from "crypto-js";
 import nodemailer from "nodemailer";
 
 export const allProduct = async (req, res) => {
@@ -236,6 +238,139 @@ export const trackOrder = async (req, res) => {
   }
 
   res.json(userorders);
+};
+
+export const upiProduct = async (req, res) => {
+  const { total } = req.body;
+  const RazorpayInstance = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
+  });
+
+  const user = await userModel.findById(req.user.userID).populate({
+    path: "cart.product",
+    populate: {
+      path: "productOwner",
+      model: "user",
+    },
+  });
+
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  const { doorNo, pincode, streetName, phonoNo } = user.address;
+  if (
+    doorNo === undefined ||
+    doorNo === "N/A" ||
+    pincode === undefined ||
+    pincode === "N/A" ||
+    streetName === undefined ||
+    streetName === "N/A" ||
+    phonoNo === undefined ||
+    phonoNo === "N/A"
+  ) {
+    return res.status(400).json({ message: "address need to fill" });
+  }
+
+  if(user.cart.length>0){
+    const options = {
+      amount: total * 100,
+      currency: "INR",
+    };
+  
+    const order = await RazorpayInstance.orders.create(options);
+  
+    res.status(200).json({ order, key: process.env.RAZORPAY_KEY_ID });
+  }else{
+    res.status(400).json({message: 'cart empty'});
+  }
+
+  
+};
+
+export const verifyUpi = async (req, res) => {
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+    req.body;
+  const genrateSecret = Crypto.HmacSHA256(
+    razorpay_order_id + "|" + razorpay_payment_id,
+    process.env.RAZORPAY_KEY_SECRET
+  ).toString(Crypto.enc.Hex);
+  if (genrateSecret === razorpay_signature) {
+    try {
+      const user = await userModel.findById(req.user.userID).populate({
+        path: "cart.product",
+        populate: {
+          path: "productOwner",
+          model: "user",
+        },
+      });
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      if (user.cart.length > 0) {
+        // Create an array of the products the user is ordering
+        const items = user.cart.map((item) => ({
+          product: item.product._id,
+          quantity: item.quantity,
+          productPrice: item.product.productPrice,
+        }));
+
+        // Calculate the total amount of the order
+        const totalAmount = items.reduce(
+          (total, item) => total + item.productPrice * item.quantity,
+          0
+        );
+
+        // Create the new order
+        const order = await orderModel.create({
+          orderedUser: user._id,
+          orderedProduct: items,
+          totalAmount,
+          paymentMethods: "UPI",
+          shippingAddress: user.address,
+        });
+
+        await Promise.all(
+          user.cart.map(async (data) => {
+            const productOwnerEmail = data.product.productOwner.email;
+            const transporter = nodemailer.createTransport({
+              service: "gmail",
+              auth: {
+                user: process.env.EMAIL_ID,
+                pass: process.env.EMAIL_PASSWORD,
+              },
+            });
+
+            await transporter.sendMail({
+              from: user.email,
+              to: productOwnerEmail,
+              subject: "Order Notification",
+              text: `The user ${user.name} has placed an order for your product "${data.product.productName}".`,
+            });
+          })
+        );
+
+        // Add this order to the user's order history
+        user.orders.push(order._id);
+        user.cart = []; // Clear the cart after placing the order
+
+        // Save the updated user
+        await user.save();
+
+        // Send the response
+        res.json({ message: "Order placed successfully", order });
+      }else{
+        return res.json({message: 'cart is empty'})
+      }
+    } catch (error) {
+      console.log(error);
+      res
+        .status(500)
+        .json({ error: "Something went wrong while placing the order" });
+    }
+  }
 };
 
 // admin functionality
