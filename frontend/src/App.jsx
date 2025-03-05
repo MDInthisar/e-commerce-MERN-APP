@@ -24,6 +24,7 @@ import UserProtectedRoute from "./Components/UserProtectedRoute.jsx";
 import TrackOrders from "./Components/TrackOrders.jsx";
 import AdminOrders from "./Components/AdminOrders.jsx";
 import NotFound from "./Components/NotFound.jsx";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const App = () => {
   const [isLoggedIn, setisLoggedIn] = useState(false);
@@ -32,83 +33,98 @@ const App = () => {
   return (
     <>
       <BrowserRouter>
-        <isLoggedInContext.Provider
-          value={{ isLoggedIn, setisLoggedIn, setlogoutmodel, logoutmodel }}
+        <GoogleOAuthProvider
+          clientId={import.meta.env.VITE_APP_GOOGLE_CLIENT_ID}
         >
-          <ToastContainer theme="dark" />
-          <Navbar isLoggedIn={isLoggedIn} />
-          <Routes>
-            <Route path="*" element={<NotFound />} />
-            <Route path="/" element={<Home />} />
-            <Route
-              path="/product-details/:id"
-              element={
-                <UserProtectedRoute>
-                  <ProductDetails />
-                </UserProtectedRoute>
-              }
-            />
-            <Route
-              path="/cart"
-              element={
-                <UserProtectedRoute>
-                  <Cart />
-                </UserProtectedRoute>
-              }
-            />
-            <Route
-              path="/track-order"
-              element={
-                <UserProtectedRoute>
-                  <TrackOrders />
-                </UserProtectedRoute>
-              }
+          <isLoggedInContext.Provider
+            value={{ isLoggedIn, setisLoggedIn, setlogoutmodel, logoutmodel }}
+          >
+            <ToastContainer
+              position="top-center" // Set the position to the top of the screen
+              autoClose={5000} // Close the toast after 5 seconds (optional)
+              hideProgressBar={false} // Show the progress bar (optional)
+              newestOnTop={true} // Show newest toast on top (optional)
+              closeOnClick // Close the toast when clicked
+              rtl={false} // Set Right to Left direction (optional)
+              pauseOnFocusLoss={true} // Disable pausing on focus loss (optional)
+              pauseOnHover={true} // Pause the timer on hover
+              theme="dark" // Apply dark theme
             />
 
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/forgotpassword" element={<ForgotPassword />} />
-            <Route path="/resetpassword" element={<ResetPassword />} />
+            <Navbar isLoggedIn={isLoggedIn} />
+            <Routes>
+              <Route path="*" element={<NotFound />} />
+              <Route path="/" element={<Home />} />
+              <Route
+                path="/product-details/:id"
+                element={
+                  <UserProtectedRoute>
+                    <ProductDetails />
+                  </UserProtectedRoute>
+                }
+              />
+              <Route
+                path="/cart"
+                element={
+                  <UserProtectedRoute>
+                    <Cart />
+                  </UserProtectedRoute>
+                }
+              />
+              <Route
+                path="/track-order"
+                element={
+                  <UserProtectedRoute>
+                    <TrackOrders />
+                  </UserProtectedRoute>
+                }
+              />
 
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/editprofile" element={<EditProfile />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/forgotpassword" element={<ForgotPassword />} />
+              <Route path="/resetpassword" element={<ResetPassword />} />
 
-            {/* admin routes */}
-            <Route
-              path="/createproduct"
-              element={
-                <ProtectedRoute>
-                  <CreateProduct />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/adminproducts"
-              element={
-                <ProtectedRoute>
-                  <Adminproducts />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/editproduct"
-              element={
-                <ProtectedRoute>
-                  <EditProduct />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin-orders"
-              element={
-                <ProtectedRoute>
-                  <AdminOrders />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-          {logoutmodel && <Logout />}
-        </isLoggedInContext.Provider>
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/editprofile" element={<EditProfile />} />
+
+              {/* admin routes */}
+              <Route
+                path="/createproduct"
+                element={
+                  <ProtectedRoute>
+                    <CreateProduct />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/adminproducts"
+                element={
+                  <ProtectedRoute>
+                    <Adminproducts />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/editproduct"
+                element={
+                  <ProtectedRoute>
+                    <EditProduct />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin-orders"
+                element={
+                  <ProtectedRoute>
+                    <AdminOrders />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+            {logoutmodel && <Logout />}
+          </isLoggedInContext.Provider>
+        </GoogleOAuthProvider>
       </BrowserRouter>
     </>
   );

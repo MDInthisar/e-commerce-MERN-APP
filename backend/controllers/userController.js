@@ -5,14 +5,21 @@ import cloudinary from "cloudinary";
 import Razorpay from "razorpay";
 import Crypto from "crypto-js";
 import nodemailer from "nodemailer";
+// import redisClient from "../config/redisClient.js";
 
 export const allProduct = async (req, res) => {
+  // const casedproduct = await redisClient.get('allproducts');
+  // if(casedproduct){
+  //   res.json(JSON.parse(casedproduct))
+  // }else{
   const products = await productModel.find();
-  if (products) {
-    res.json(products);
-  } else {
-    res.json([]);
-  }
+  // redisClient.set('allproducts', JSON.stringify(products))
+  res.json(products);
+  // }
+  // if (products) {
+  // } else {
+  //   res.json([]);
+  // }
 };
 
 export const singleProduct = async (req, res) => {
@@ -86,7 +93,6 @@ export const allCart = async (req, res) => {
   const user = await userModel
     .findOne({ _id: req.user.userID })
     .populate("cart.product");
-
   let total = 0;
   user.cart.forEach((item) => {
     total = total + item.product.productPrice * item.quantity;
@@ -186,6 +192,7 @@ export const orderProduct = async (req, res) => {
         totalAmount,
         paymentMethods: "COD",
         shippingAddress: user.address,
+        orderStatus: "confirm",
       });
 
       await Promise.all(
@@ -270,23 +277,21 @@ export const upiProduct = async (req, res) => {
     phonoNo === undefined ||
     phonoNo === "N/A"
   ) {
-    return res.status(400).json({ message: "address need to fill" });
+    return res.json({ message: "address need to fill" });
   }
 
-  if(user.cart.length>0){
+  if (user.cart.length > 0) {
     const options = {
       amount: total * 100,
       currency: "INR",
     };
-  
-    const order = await RazorpayInstance.orders.create(options);
-  
-    res.status(200).json({ order, key: process.env.RAZORPAY_KEY_ID });
-  }else{
-    res.status(400).json({message: 'cart empty'});
-  }
 
-  
+    const order = await RazorpayInstance.orders.create(options);
+
+    res.status(200).json({ order, key: process.env.RAZORPAY_KEY_ID });
+  } else {
+    res.status(400).json({ message: "cart empty" });
+  }
 };
 
 export const verifyUpi = async (req, res) => {
@@ -361,8 +366,8 @@ export const verifyUpi = async (req, res) => {
 
         // Send the response
         res.json({ message: "Order placed successfully", order });
-      }else{
-        return res.json({message: 'cart is empty'})
+      } else {
+        return res.json({ message: "cart is empty" });
       }
     } catch (error) {
       console.log(error);
@@ -485,5 +490,44 @@ export const bookedProduct = async (req, res) => {
     res
       .status(500)
       .json({ error: "Something went wrong while fetching the orders" });
+  }
+};
+
+export const userCancelProdcut = async (req, res) => {
+  const { orderId } = req.body;
+  const order = await orderModel.findOne({ _id: orderId });
+  if (!order) return res.json({ message: "order not found" });
+
+  try {
+    if (req.user.role === "user") {
+      const updatedOrder = await orderModel.findByIdAndUpdate(
+        orderId,
+        {
+          orderStatus: "canceled",
+          canceledAt: Date.now(),
+          message: "order canceled by User",
+        },
+        { new: true }
+      );
+
+      res.json({ message: "order cancelled", order: updatedOrder });
+    } else {
+      const updatedOrder = await orderModel.findByIdAndUpdate(
+        orderId,
+        {
+          orderStatus: "canceled",
+          canceledAt: Date.now(),
+          message: "order canceled by Owner",
+        },
+        { new: true }
+      );
+
+      res.json({ message: "order cancelled", order: updatedOrder });
+    }
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "Something went wrong while canceling the order" });
   }
 };

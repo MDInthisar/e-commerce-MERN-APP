@@ -23,6 +23,16 @@
   width: 100%;
 }
 
+.cardds {
+  width: 100vw;
+  min-height: 100vh; /* Changed from height to min-height */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3vw;
+  padding: 2vw 0 0 0;
+  justify-content: center;
+}
+
 .card {
   background-color: #2d2d2d;
   border-radius: 15px;
@@ -110,7 +120,8 @@
   
   .card {
     flex: 1 1 100%;
-    max-width: 45%;  }
+    max-width: 45%;
+  }
   
   .home-img {
     height: 180px;

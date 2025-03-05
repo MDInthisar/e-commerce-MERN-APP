@@ -5,7 +5,6 @@ const islogedIn = (req, res, next)=>{
     const token = authHeader.split(' ')[1];
     jwt.verify(token, process.env.JWT_SECERT, (err, payload)=>{
         if(err) return res.json(err.message)
-            
         req.user = payload;
         next()
     });

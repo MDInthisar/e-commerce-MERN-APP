@@ -3,9 +3,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import {isLoggedInContext} from '../contexts/isLoggedInContext'
+import {GoogleLogin} from '@react-oauth/google'
+import {jwtDecode} from "jwt-decode";
 
 import "./Login.css";
-import { FaAd, FaEye, FaEyeDropper, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
 
@@ -42,6 +44,22 @@ const Login = () => {
     }
   };
 
+  const handleGoogleLogin = async (credencialResponse)=>{
+    const decode = jwtDecode(credencialResponse.credential);
+    const { email, email_verified, name, picture} = decode;
+    const response = await axios.post(`${import.meta.env.VITE_APP_BACKEND_URL}/auth/googlelogin`,{
+      email,
+      email_verified,
+      name,
+      picture,
+      clientID: credencialResponse.clientId,
+    });
+    setisLoggedIn(true)
+    localStorage.setItem('token', response.data.token);
+    notifySuccess(response.data.message);
+    navigate('/')
+  }
+
   return (
     <div className="l-container">
           <div className="login-container">
@@ -77,6 +95,9 @@ const Login = () => {
         </div>
 
         <button type="submit">Login</button>
+        <GoogleLogin onSuccess={(credencialResponse)=>{
+          handleGoogleLogin(credencialResponse)
+        }} />
       </form>
       <Link to='/forgotpassword'><span>forgot password</span></Link>
     </div>

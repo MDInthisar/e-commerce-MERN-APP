@@ -1,8 +1,9 @@
 import axios from "axios";
 import "./Home.css";
-import Loader from './Loader'
+import Loader from './Loader';
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Carousul from "./Carosul"; // Corrected import
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -31,33 +32,36 @@ const Home = () => {
       <div className="home">
         {loading ? (
           // Show loader when loading is true
-          <Loader/>
+          <Loader />
         ) : products.length <= 0 ? (
           <h1>No products available</h1>
         ) : (
           <div className="products-container">
-            {products
-              .slice()
-              .reverse()
-              .map((product) => (
-                <div
-                  className="card"
-                  key={product._id}
-                  onClick={() => navigate(`/product-details/${product._id}`)}
-                >
-                  <div className="home-img">
-                    <img
-                      src={product.productPhoto} // Replace with your image property
-                      alt={product.productName}
-                      className="card-img"
-                    />
+            <Carousul />
+            <div className="cardds">
+              {products
+                .slice()
+                .reverse()
+                .map((product) => (
+                  <div
+                    className="card"
+                    key={product._id}
+                    onClick={() => navigate(`/product-details/${product._id}`)}
+                  >
+                    <div className="home-img">
+                      <img
+                        src={product.productPhoto} // Replace with your image property
+                        alt={product.productName}
+                        className="card-img"
+                      />
+                    </div>
+                    <div className="card-details">
+                      <h3 className="card-name">{product.productName}</h3>
+                      <p className="card-price">${product.productPrice}</p>
+                    </div>
                   </div>
-                  <div className="card-details">
-                    <h3 className="card-name">{product.productName}</h3>
-                    <p className="card-price">${product.productPrice}</p>
-                  </div>
-                </div>
-              ))}
+                ))}
+            </div>
           </div>
         )}
       </div>

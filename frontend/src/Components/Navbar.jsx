@@ -3,7 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import { Link } from "react-router-dom";
 import { isLoggedInContext } from "../contexts/isLoggedInContext";
 import "./Navbar.css";
-import logo from '../../public/logo.png'
+import logo from './../assets/logo.png'
 
 const Navbar = ({ isLoggedIn }) => {
   const { setlogoutmodel } = useContext(isLoggedInContext);

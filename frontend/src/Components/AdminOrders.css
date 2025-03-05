@@ -4,8 +4,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    align-items: center;
-    justify-content: center;
     padding: 20px;
     background-color: #1b1b1b;
   }

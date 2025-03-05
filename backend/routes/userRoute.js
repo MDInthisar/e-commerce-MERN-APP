@@ -16,6 +16,7 @@ import {
   upiProduct,
   verifyUpi,
   bookedProduct,
+  userCancelProdcut,
 } from "../controllers/userController.js";
 import islogedIn from "../middlewares/islogedIn.js";
 import isAdmin from "../middlewares/isAdmin.js";
@@ -23,10 +24,11 @@ import ownerProductImages from "../config/multerConfig.js";
 
 const router = express.Router();
 
-router.get("/allproduct", allProduct);
+router.get("/allproduct", allProduct); 
 router.get("/product/:id", islogedIn, isAdmin("admin", "user"), singleProduct);
 router.get("/profile", islogedIn, profile);
 router.put("/profileupdate", islogedIn, ownerProductImages.single('profilepic'), profileUpdate);
+router.put('/usercancelproduct', islogedIn, userCancelProdcut)
 router.post("/addtocart", islogedIn, addToCart);
 router.delete("/removecart/:id", islogedIn, removeCart);
 router.get("/allcarts", islogedIn, allCart);

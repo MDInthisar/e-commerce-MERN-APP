@@ -75,7 +75,7 @@ const Cart = () => {
       );
       if (response.status === 200) {
         notifySuccess(response.data.message);
-        navigate("/");
+        navigate("/track-order");
       } else {
         notifyError(response.data.error);
       }
@@ -92,7 +92,7 @@ const Cart = () => {
       const response = await axios.post(`${import.meta.env.VITE_APP_BACKEND_URL}/user/upiproduct`,{total},{
         headers:{
           Authorization: `Bearer ${token}`
-        }
+        },
       });
       if(response.status === 200){
         
@@ -127,21 +127,22 @@ const Cart = () => {
             .catch(error => {
              notifyError('Error verifying payment');
             });
-          }
-          
-          
+          } 
         };
+
         if (window.Razorpay) {
           const rzp = new window.Razorpay(options);
           rzp.open();
         } else {
           notifyError("Payment failed.m Please try again.");
         }
+
       }else{
         notifyError(response.data.message)
       }
     } catch (error) {
-      notifyError("Payment failed.o Please try again.");
+      notifyError("Address need to fill");
+      navigate('/profile')
     }
   };
   
@@ -189,15 +190,18 @@ const Cart = () => {
             <h1>no cart</h1>
           )}
         </div>
+        
         <div className="total">
-          <div className="amount">
+         {
+          carts.length>0?( <div className="amount">
             <p>Amount</p>
             <p>₹ {total}</p>
             <div className="buttons">
             <button style={{marginRight: '1vw'}} onClick={()=> handleUPIPayment()}>UPI</button>
             <button onClick={() => setopenBuy(true)}>Buy</button>
             </div>
-          </div>
+          </div>):(null)
+         }
         </div>
         {openBuy && (
           <div className="openbuy" onClick={() => setopenBuy(false)}>

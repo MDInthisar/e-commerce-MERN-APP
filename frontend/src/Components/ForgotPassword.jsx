@@ -3,9 +3,11 @@ import "./ForgotPassword.css"; // Import the CSS file for styling
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
+import Loader from './Loader'
 
 const ForgotPassword = () => {
   const [email, setemail] = useState("");
+  const [loading, setloading] = useState(false);
 
   const notifyError = (e) => toast.error(e);
   const notifySuccess = (e) => toast.success(e);
@@ -13,6 +15,7 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
+    setloading(true);
    
     try {
 
@@ -31,11 +34,15 @@ const ForgotPassword = () => {
 
     } catch (error) {
         notifyError(error.message)
+    }finally{
+      setloading(false)
     }
   };
 
   return (
-    <div className="forgot-password-container">
+    <>
+    {loading ? (<Loader/>):(
+      <div className="forgot-password-container">
       <div className="forgot-password-card">
         <h2>Forgot Password</h2>
         <p>Please enter your email to reset your password.</p>
@@ -52,6 +59,8 @@ const ForgotPassword = () => {
       <Link to='/login'><span>Login</span></Link>
       </div>
     </div>
+    )}
+    </>
   );
 };
 

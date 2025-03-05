@@ -26,6 +26,14 @@ const orderSchema = mongoose.Schema({
     type:String,
     enum:['COD', 'UPI'],
   },
+  orderStatus:{
+    type: String,
+    enum:['pending', 'confirm', 'canceled', 'placed'],
+  },
+  canceledAt: {
+    type: Date,
+    default: Date.now(),
+  },
   shippingAddress: {
     doorNo: { type: String },
     streetName: { type: String },
@@ -36,6 +44,7 @@ const orderSchema = mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  message:String,
 });
 
 export default mongoose.model('order', orderSchema);
