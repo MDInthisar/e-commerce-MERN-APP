@@ -7,7 +7,7 @@ import cors from 'cors';
 
 import authRoute from "./routes/authRoute.js";
 import userRoute from "./routes/userRoute.js";
-  
+
 dotenv.config();
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,

@@ -54,7 +54,7 @@ export const profile = async (req, res) => {
 
 export const profileUpdate = async (req, res) => {
   const { name, username, doorNo, streetName, pincode, phonoNo } = req.body;
-  const file = req.file;
+  const file = req.file.buffer;
   let profilePic;
   const user = await userModel.findOne({ _id: req.user.userID });
 
@@ -66,16 +66,25 @@ export const profileUpdate = async (req, res) => {
       return res.status(400).json({ error: "Username already exists" });
     }
   }
+
   if (file) {
     if (user.profilePic) {
       await cloudinary.v2.uploader.destroy(
         user.profilePic.split("/").pop().split(".")[0]
       );
     }
-    const uploadedResponse = await cloudinary.uploader.upload(file.path);
-    profilePic = uploadedResponse.secure_url;
-  }
 
+    profilePic = await new Promise((resolve, reject)=>{
+      const uploader = cloudinary.v2.uploader.upload_stream({resource_type: 'image'}, (err, result)=>{
+        if(err) return reject(res.json({error: 'Faild to upload image'}));
+        else return resolve(result.secure_url);
+      })
+      uploader.end(file)
+    })
+  }
+  // const uploadedResponse = await cloudinary.v2.uploader.upload(file.path);
+  // profilePic = uploadedResponse.secure_url;
+  
   user.name = name || user.name;
   user.username = username || user.username;
   user.profilePic = profilePic || user.profilePic;
@@ -378,11 +387,14 @@ export const verifyUpi = async (req, res) => {
   }
 };
 
+
+
+
 // admin functionality
 
 export const createProduct = async (req, res) => {
   const { productName, productDescription, productPrice, stock } = req.body;
-  const image = req.file.path;
+  const image = req.file.buffer;
   try {
     const user = await userModel.findOne({ _id: req.user.userID });
 
@@ -393,14 +405,18 @@ export const createProduct = async (req, res) => {
 
     if (image) {
       try {
-        const uploader = await cloudinary.v2.uploader.upload(image);
-        uploadedPhotoUrl = uploader.secure_url;
+        uploadedPhotoUrl = await new Promise((resolve, reject)=>{
+          const uploader = cloudinary.v2.uploader.upload_stream({resource_type: 'image'}, (err, result)=>{
+            if(err) reject(res.json({error: 'Faild to upload image'}));
+            else resolve(result.secure_url)
+          });
+          uploader.end(req.file.buffer)
+        })
       } catch (error) {
         return res.status(500).json({ error: "Error uploading photo" });
       }
     }
-
-    let product = await productModel.create({
+    await productModel.create({
       productName,
       productDescription,
       productPrice,
@@ -422,7 +438,7 @@ export const adminProducts = async (req, res) => {
 export const editProduct = async (req, res) => {
   const { productName, productDescription, productPrice, stock } = req.body;
   let productPhoto;
-  const file = req.file;
+  const file = req.file.buffer;
 
   const { id } = req.params;
 
@@ -434,8 +450,14 @@ export const editProduct = async (req, res) => {
         searchProduct.productPhoto.split("/").pop().split(".")[0]
       );
     }
-    const uploader = await cloudinary.v2.uploader.upload(file.path);
-    productPhoto = uploader.secure_url;
+
+    productPhoto = await new Promise((resolve, reject)=>{
+      const uploader = cloudinary.v2.uploader.upload_stream({resource_type: 'image'}, (err, result)=>{
+        if(err) return reject(res.json({error: 'Faild to upload image'}));
+        else return resolve(result.secure_url);
+      })
+      uploader.end(file)
+    })
   }
 
   searchProduct.productName = productName || searchProduct.productName;
@@ -456,7 +478,7 @@ export const deleteProduct = async (req, res) => {
   const searchProduct = await productModel.findOne({ _id: id });
 
   if (!searchProduct) return res.json({ error: "product not found" });
-
+  await cloudinary.v2.uploader.destroy(searchProduct.productPhoto.split('/').pop().split('.')[0])
   await productModel.findByIdAndDelete({ _id: id });
 
   res.json({ message: `${searchProduct.productName} deleted sucessfull` });
@@ -525,7 +547,6 @@ export const userCancelProdcut = async (req, res) => {
       res.json({ message: "order cancelled", order: updatedOrder });
     }
   } catch (error) {
-    console.error(error);
     res
       .status(500)
       .json({ error: "Something went wrong while canceling the order" });
