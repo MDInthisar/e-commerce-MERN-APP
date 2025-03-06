@@ -69,22 +69,20 @@ export const profileUpdate = async (req, res) => {
 
   if (file) {
     if (user.profilePic) {
-      await cloudinary.v2.uploader.destroy(
+      await cloudinary.uploader.destroy(
         user.profilePic.split("/").pop().split(".")[0]
       );
     }
 
-    profilePic = await new Promise((resolve, reject)=>{
-      const uploader = cloudinary.v2.uploader.upload_stream({resource_type: 'image'}, (err, result)=>{
-        if(err) return reject(res.json({error: 'Faild to upload image'}));
+    profilePic = await new Promise((resolve, reject) => {
+      const uploader = cloudinary.uploader.upload_stream({ resource_type: 'image' }, (err, result) => {
+        if (err) return reject(res.json({ error: 'Failed to upload image' }));
         else return resolve(result.secure_url);
-      })
-      uploader.end(file)
-    })
+      });
+      uploader.end(file);
+    });
   }
-  // const uploadedResponse = await cloudinary.v2.uploader.upload(file.path);
-  // profilePic = uploadedResponse.secure_url;
-  
+
   user.name = name || user.name;
   user.username = username || user.username;
   user.profilePic = profilePic || user.profilePic;
@@ -95,8 +93,9 @@ export const profileUpdate = async (req, res) => {
 
   await user.save();
 
-  res.json({ message: "profile updated" });
+  res.json({ message: "Profile updated" });
 };
+
 
 export const allCart = async (req, res) => {
   const user = await userModel
@@ -406,7 +405,7 @@ export const createProduct = async (req, res) => {
     if (image) {
       try {
         uploadedPhotoUrl = await new Promise((resolve, reject)=>{
-          const uploader = cloudinary.v2.uploader.upload_stream({resource_type: 'image'}, (err, result)=>{
+          const uploader = cloudinary.uploader.upload_stream({resource_type: 'image'}, (err, result)=>{
             if(err) reject(res.json({error: 'Faild to upload image'}));
             else resolve(result.secure_url)
           });
@@ -446,13 +445,13 @@ export const editProduct = async (req, res) => {
 
   if (file) {
     if (searchProduct.productPhoto) {
-      await cloudinary.v2.uploader.destroy(
+      await cloudinary.uploader.destroy(
         searchProduct.productPhoto.split("/").pop().split(".")[0]
       );
     }
 
     productPhoto = await new Promise((resolve, reject)=>{
-      const uploader = cloudinary.v2.uploader.upload_stream({resource_type: 'image'}, (err, result)=>{
+      const uploader = cloudinary.uploader.upload_stream({resource_type: 'image'}, (err, result)=>{
         if(err) return reject(res.json({error: 'Faild to upload image'}));
         else return resolve(result.secure_url);
       })
