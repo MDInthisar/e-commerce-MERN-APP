@@ -30,6 +30,7 @@ const Home = () => {
   return (
     <>
       <div className="home">
+<Carousel/>
         {loading ? (
           // Show loader when loading is true
           <Loader />
